@@ -1,0 +1,175 @@
+/** bootstrap multiselect css **/
+%selectTransition {
+    transition:
+        background-color 0.15s ease-in-out,
+        border-color 0.15s ease-in-out,
+        box-shadow 0.15s ease-in-out;
+}
+.bs-multiselect {
+    .custom-control-label {
+        &::before {
+            @extend %selectTransition;
+        }
+    }
+    .custom-file-label {
+        @extend %selectTransition;
+    }
+    .custom-select {
+        @extend %selectTransition;
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        padding: 0.25rem 3.6rem 0.25rem 0.8rem;
+        border: var(--vz-border-width) solid var(--vz-input-border-custom) !important;
+        border-radius: var(--vz-border-radius) !important;
+        font-size: 0.8125rem;
+        min-height: 37.5px;
+        vertical-align: middle;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        &.text-left {
+            text-align: left !important;
+        }
+        &.text-center {
+            text-align: center !important;
+        }
+        &.text-right {
+            text-align: right !important;
+        }
+        &::before {
+            content: "\f0140";
+            font-family: "Material Design Icons";
+            position: absolute;
+            right: 11.5px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            font-size: 16px;
+        }
+        &.bs-bg-light {
+            background-color: #ebeff0;
+            border: 1px solid #c4d2d4;
+        }
+    }
+    .multiselect-container {
+        &.dropdown-menu {
+            border: 1px solid var(--vz-border-color) !important;
+        }
+        .multiselect-all,
+        .multiselect-option {
+            &:not(.multiselect-all) {
+                color: var(--vz-dropdown-link-active-color);
+                background-color: #fff;
+            }
+            .form-check-label {
+                font-weight: normal;
+                white-space: normal;
+            }
+            &:hover,
+            &:focus,
+            &.active {
+                background-color: var(--vz-dropdown-link-active-bg) !important;
+                color: var(--vz-dropdown-link-active-color);
+            }
+        }
+    }
+}
+
+/** end: bootstrap multiselect css **/
+
+/** guard watch **/
+#clockContainer {
+    position: relative;
+    margin: auto;
+    height: 200px;
+    /*to make the height and width responsive*/
+    width: 200px;
+    background: url(../images/watch-dialpad-300*300.jpeg) no-repeat;
+    /*setting our background image*/
+    background-size: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+#hour,
+#minute,
+#second {
+    position: absolute;
+    background: black;
+    border-radius: 10px;
+    transform-origin: bottom;
+}
+
+#hour {
+    width: 1.8%;
+    height: 25%;
+    top: 25%;
+    left: 48.85%;
+    opacity: 0.8;
+}
+
+#minute {
+    width: 1.6%;
+    height: 30%;
+    top: 19%;
+    left: 48.9%;
+    opacity: 0.8;
+}
+
+#second {
+    width: 1%;
+    height: 40%;
+    top: 9%;
+    left: 49.25%;
+    opacity: 0.8;
+}
+/** end: guard watch **/
+
+/** flag guard name **/
+[data-option-flag-img-name] {
+    .flag-input {
+        &.flag-guard {
+            background-image: url(../images/users/user-dummy-img.jpg);
+            background-position: 12px 6px;
+            background-size: 24px;
+        }
+    }
+}
+
+/** table custom collapse css **/
+.table-collapse-custom {
+    a {
+        &[data-bs-toggle="collapse"] {
+            .ri-add-box-fill {
+                display: none;
+            }
+            .ri-checkbox-indeterminate-fill {
+                display: block;
+            }
+            &.collapsed {
+                .ri-add-box-fill {
+                    display: block;
+                }
+                .ri-checkbox-indeterminate-fill {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+/** end: table custom collapse css **/
+
+// select 2
+.input-group-select {
+    .input-group-text {
+        padding: 0;
+        min-width: 80px;
+        .select2-container {
+            .select2-selection--single {
+                border: 0;
+                background: var(--vz-tertiary-bg);
+            }
+        }
+    }
+}

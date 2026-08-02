@@ -1,0 +1,292 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+
+            <div class="h-100">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                            <h4 class="mb-sm-0">@ViewBag.Title Master </h4>
+
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item">@ViewBag.Title Master</li>
+                                    <li class="breadcrumb-item active">@ViewBag.Title List</li>
+                                </ol>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    <!--end col-->
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="d-flex align-items-center flex-wrap gap-2">
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title mb-0">@ViewBag.Title List</h5>
+                                    </div>
+                                    <div class="flex-shrink-0">
+                                        <div class="hstack text-nowrap gap-2">
+                                            <a href="#addBlogModal" role="button" data-bs-toggle="modal" class="btn btn-primary add-btn"><i class="ri-add-fill me-1 align-bottom"></i> Add @ViewBag.Title</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <table id="BlogListTable" class="table nowrap align-middle" style="width:100%">
+                                   
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end row-->
+
+                <div class="row">
+                </div>
+            </div> <!-- end .h-100-->
+        </div> <!-- end col -->
+    </div>
+</div>
+@model FoodOne.ViewModels.BlogViewModel
+
+
+<!-- add/edit blog modal -->
+<div id="addBlogModal" class="modal fade" tabindex="-1" aria-labelledby="addBlogLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="BlogForm" asp-area="Admin" asp-controller="Blog" asp-action="Add" method="post" enctype="multipart/form-data">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" value="0" />
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addBlogLabel">Add @ViewBag.Title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Category</label>
+                        <select asp-for="CategoryId" class="form-control" id="CategoryId"></select>
+                        <span asp-validation-for="CategoryId" class="invalid-feedback"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Title</label>
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="invalid-feedback"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Image</label>
+                        <input asp-for="Image" type="file" class="form-control" />
+                        <span asp-validation-for="Image" class="invalid-feedback"></span>
+                        <div id="currentBlogImage" class="mt-2"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Description" class="invalid-feedback"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Status</label>
+                        <div class="mt-4 mt-lg-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" asp-for="Status" type="radio" id="status1" value="1" />
+                                <label class="form-check-label" for="status1">Active</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" asp-for="Status" type="radio" id="status2" value="0" />
+                                <label class="form-check-label" for="status2">Inactive</label>
+                            </div>
+                            <div>
+                                <span asp-validation-for="Status" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary"> <i id="btn_spin"></i> Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        
+        $(function() {
+            bindCategoryDropdown(0);
+            $(document).on("click", ".add-btn", function() {
+                // Reset all form fields
+                $("#BlogForm")[0].reset();
+                $('[name=Id]').val(0);
+                // Reset hidden ID field
+                $("#ID").val(0);
+                $('#currentBlogImage').empty();
+                bindCategoryDropdown(0);
+                // Change modal title
+                $("#myModalLabel").text("Add Blog");
+
+            });
+            function bindCategoryDropdown(selectedId) {
+                $.ajax({
+                    url: '/admin/category/categorylist', type: 'GET', success: function(response) {
+                        var options = '<option value="">Select Category</option>';
+                        $.each(response, function(i, item) {
+                            options += '<option value="' + item.id + '"' + (item.id == selectedId ? ' selected' : '') + '>' + item.name + '</option>';
+                        });
+                        $('#CategoryId').html(options);
+                    }
+                });
+            }
+
+            function initTable() {
+                if ($.fn.DataTable.isDataTable('#BlogListTable')) { $('#BlogListTable').DataTable().destroy(); $('#BlogListTable').empty(); }
+                $('#BlogListTable').DataTable({
+                    processing: true, serverSide: true, ajax: { url: '/admin/blog/list', type: 'POST' },
+                    columns: [
+                        { data: 'title', title: 'Title' },
+                        { data: 'categoryName', title: 'Category' },
+                        { data: 'imageUrl', title: 'Image', orderable: false, searchable: false, render: function(d) { return d ? '<img src="' + d + '" style="height:40px"/>' : '' } },
+                        { data: 'status', title: 'Status', render: function(d) { return d == 1 ? 'Active' : 'Inactive' } },
+                        { data: 'Id', title: 'Action', orderable: false, searchable: false, 
+                         render: function(data, type, row) {
+                                // Convert row object into JSON string
+                                var rowData = encodeURIComponent(JSON.stringify(row));
+                                //console.log(rowData);
+                                var html = '';
+                                html += '<div class="hstack gap-3 flex-wrap">';
+                                html += '<a href="javascript:void(0);" data-row="' + rowData + '" class="link-success fs-16 btnEditCategory" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Edit" data-bs-original-title="Edit"><i class="ri-edit-2-line"></i></a>';
+                                html += '<div class="position-relative cursor-p ointer" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Delete" data-bs-original-title="Delete">';
+                                html += '<a class="link-danger fs-16 stretched-link" onclick="deleteBlog(' + row.id + ')">';
+                                html += '<i class="ri-delete-bin-line"></i>';
+                                html += '</a>';
+                                html += '</div>';
+                                html += '</div>';
+                                return html
+                        } }
+                    ], order: [[0, 'asc']]
+                });
+
+                
+
+            }
+
+            initTable();
+
+            // handle add/edit form
+            $('#BlogForm').submit(function(e) { 
+                e.preventDefault();
+                $('.invalid-feedback').text('').removeClass('d-block'); 
+                $('#BlogForm').find('.is-invalid').removeClass('is-invalid'); 
+                var fd = new FormData(this); 
+                $.ajax({ 
+                    url: $(this).attr('action') || '/admin/blog/add', 
+                    type: 'POST', 
+                    data: fd, 
+                    processData: false, 
+                    contentType: false, 
+                    beforeSend: function() {
+                        $("#btn_spin").addClass("spinner-border spinner-border-sm");
+                    },
+                    complete: function() {
+                       $("#btn_spin").removeClass('spinner-border spinner-border-sm');
+                    },
+                    success: function(res) { 
+                        if (res && res.success) { 
+                            toastr.success(res.message); 
+                            $('#BlogForm')[0].reset(); 
+                            $('#currentBlogImage').empty(); 
+                            var modal = bootstrap.Modal.getInstance(document.getElementById('addBlogModal')); 
+                            if (modal) modal.hide(); 
+                            $('#BlogListTable').DataTable().ajax.reload(); 
+                            bindCategoryDropdown(0); 
+                        } else if (res && res.errors) { 
+                            $.each(res.errors, function(field, msgs) { 
+                                var key = field.split('.').pop(); 
+                                $('[name="' + key + '"]').addClass('is-invalid'); 
+                                $('span[data-valmsg-for="' + key + '"]').addClass('d-block').text(msgs[0]); }); 
+                        } else toastr.error(res.message || 'Save failed'); 
+                        }, error: function(xhr) { 
+                            var json; 
+                            try { 
+                                json = xhr.responseJSON || JSON.parse(xhr.responseText); 
+                            } catch (e) { 
+                            } if (json && json.errors) {
+                                $.each(json.errors, function(field, msgs) { 
+                                    var key = field.split('.').pop(); 
+                                    $('[name="' + key + '"]').addClass('is-invalid'); 
+                                    $('span[data-valmsg-for="' + key + '"]').addClass('d-block').text(msgs[0]); 
+                                }); 
+                            } else toastr.error('Server error'); 
+                            } 
+                  }); 
+             });
+
+            $(document).on("click", ".btnEditCategory", function() {
+                $("#BlogForm")[0].reset();
+                var row = JSON.parse(
+                    decodeURIComponent($(this).attr("data-row"))
+                );
+                $('[name=Id]').val(row.id);
+                $('[name=Title]').val(row.title);
+                $('[name=Description]').val(row.description);
+                $('[name=Status][value="' + row.status + '"]').prop('checked', true);
+                bindCategoryDropdown(row.categoryId);
+                if (row.imageUrl)
+                    $('#currentBlogImage').html('<img src="' + row.imageUrl + '" style="max-height:80px"/>');
+                else $('#currentBlogImage').empty();
+                $("#addBlogModal").modal("show");
+            });
+          
+        });
+
+        /*=======>DELETE Category IN LIST=>START<=======*/
+        function deleteBlog(blog_id) {
+            Swal.fire({
+                html: '<div class="mt-3"><lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon><div class="mt-4 pt-2 fs-15 mx-5"><h4>Are you Sure ?</h4><p class="text-muted mx-4 mb-0">Are you Sure You want to Delete this Account ?</p></div></div>',
+                showCancelButton: !0,
+                confirmButtonClass: "btn btn-primary w-xs me-2 mb-1",
+                confirmButtonText: "Yes, Delete It!",
+                cancelButtonClass: "btn btn-danger w-xs mb-1",
+                buttonsStyling: !1,
+                showCloseButton: !0
+            }).then(function(result) {
+                if (result.value) {
+                    //Ajax Call
+                    $.ajax({
+                        url: "/admin/blog/delete",
+                        type: "POST",
+                        data: { id: blog_id },
+                        success: function(response) {
+                            if (response.success) {
+                                toastr.success(response.message);
+                                // Reload DataTable or blog list
+                                initTable();
+                            } else {
+                                toastr.error(response.message);
+                            }
+                        },
+                        error: function() {
+                            toastr.error("Something went wrong.");
+                        }
+                    });
+
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+
+                }
+            });
+        }
+    </script>
+}

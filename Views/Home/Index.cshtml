@@ -1,0 +1,511 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!-- Slider -->
+<div class="owl-carousel owl-theme banner-bg-image">
+    <div class="item d-flex justify-content-center">
+        <div class="row align-items-center w-100">
+            <div class="col-12 col-sm-6 d-flex justify-content-center slider-content">
+                <div class="details">
+                    <div class="column first-slide">
+                        <h3 class="wow animate__slideInUp" data-wow-duration="1s">Loaded</h3>
+                        <h1 class="wow animate__slideInUp" data-wow-duration="2s">Burguer</h1>
+                        <div class="wow animate__slideInUp mt-4" data-wow-duration="3s">
+                            <h4>Medium 2-topping*</h4>
+                            <p>*Additional charge for premium toppings. Minimum of 2 required.</p>
+                        </div>
+
+                        <div class=" mt-5 title d-flex align-items-center wow wow animate__slideInUp"
+                             data-wow-duration="4s">
+                            <a href="#" class="order-now">ORDER NOW</a>
+                            <span class="food-price ms-5">
+                                <strong>Rs 119</strong>
+                                <del>Rs 135</del>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 wow animate__slideInDown d-none d-sm-block" data-wow-duration="1s">
+                <img src="~/front/images/Burger.png" alt="" class="img-fluid mx-auto">
+            </div>
+        </div>
+    </div>
+
+    <div class="item d-flex justify-content-center">
+        <div class="row align-items-center w-100">
+            <div class="col-12 col-sm-6 d-flex justify-content-center slider-content">
+                <div class="details">
+                    <div class="column first-slide">
+                        <h3 class="wow animate__slideInDown" data-wow-duration="4s">Loaded</h3>
+                        <h1 class="wow animate__slideInDown" data-wow-duration="3s">Pizza</h1>
+                        <div class="wow animate__slideInDown" data-wow-duration="2s">
+                            <h4>Medium 2-topping*</h4>
+                            <p>*Additional charge for premium toppings. Minimum of 2 required.</p>
+                        </div>
+
+                        <div class=" mt-5 title d-flex align-items-center wow animate__slideInDown"
+                             data-wow-duration="1s">
+                            <a href="#" class="order-now">ORDER NOW</a>
+                            <span class="food-price ms-5">
+                                <strong>Rs 119</strong>
+                                <del>Rs 135</del>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 d-none d-sm-block wow animate__slideInUp" data-wow-duration="1s">
+                <img src="front/images/pizza.png" alt="" class="img-fluid mx-auto">
+            </div>
+        </div>
+    </div>
+
+    <div class="item d-flex justify-content-center">
+        <div class="row align-items-center w-100">
+            <div class="col-12 col-sm-6 d-flex justify-content-center align-items-center slider-content">
+                <div class="details">
+                    <div class="column first-slide">
+                        <h3 class="wow animate__slideInUp" data-wow-duration="1s">Loaded</h3>
+                        <h1 class="wow animate__slideInUp" data-wow-duration="2s">Frankie</h1>
+                        <div class="wow animate__slideInUp" data-wow-duration="3s">
+                            <h4>Medium 2-topping*</h4>
+                            <p>*Additional charge for premium toppings. Minimum of 2 required.</p>
+                        </div>
+
+                        <div class=" mt-5 title d-flex align-items-center wow animate__slideInUp"
+                             data-wow-duration="4s">
+                            <a href="#" class="order-now">ORDER NOW</a>
+                            <span class="food-price ms-5">
+                                <strong>Rs 119</strong>
+                                <del>Rs 135</del>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 d-none d-sm-flex justify-content-center wow animate__slideInDown"
+                 data-wow-duration="1s">
+                <img src="~/front/images/francky.png" alt="" class="img-fluid mx-auto">
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="spacerX mt-5">
+    <div class="special-menu  food-gallery">
+        <div class="row button-group filters-button-group  justify-content-center ">
+            <div class="col-auto mt-3 d-flex align-items-center justify-content-center me-sm-4">
+                <div class="borders-All">
+                    <button class="button is-checked color-All" data-filter="*">
+                        <p class="fw-bold fs-2">All</p>
+                    </button>
+                </div>
+            </div>
+            <div class="col-auto mt-3 d-flex align-items-center justify-content-center me-sm-4">
+                <div class="borders-1">
+                    <button class="button is-checked color-1" data-filter=".Burger">
+                        <img src="~/front/images/food-1.png" alt="">
+                        <p class="fw-bold">Burger</p>
+                    </button>
+                </div>
+            </div>
+            <div class="col-auto mt-3 d-flex align-items-center justify-content-center me-sm-4">
+                <div class="borders-2">
+                    <button class="button color-2" data-filter=".Sandwitch">
+                        <img src="~/front/images/food-2.png"
+                             alt="">
+                        <p class="fw-bold">Sandwitch</p>
+                    </button>
+                </div>
+            </div>
+            <div class="col-auto mt-3 d-flex align-items-center justify-content-center me-sm-4">
+                <div class="borders-3">
+                    <button class="button color-3" data-filter=".Frankie">
+                        <img src="~/front/images/food-3.png"
+                             alt="">
+                        <p class="fw-bold">Frankie</p>
+                    </button>
+                </div>
+            </div>
+            <div class="col-auto mt-3 d-flex align-items-center justify-content-center  me-sm-4">
+                <div class="borders-4">
+                    <button class="button color-4" data-filter=".Pizza">
+                        <img src="~/front/images/food-4.png"
+                             alt="">
+                        <p class="fw-bold">Pizza</p>
+                    </button>
+                </div>
+            </div>
+            <div class="col-auto mt-3 d-flex align-items-center justify-content-center me-sm-4">
+                <div class="borders-5">
+                    <button class="button color-5" data-filter=".Fries">
+                        <img src="~/front/images/food-5.png"
+                             alt="">
+                        <p class="fw-bold">Fries</p>
+                    </button>
+                </div>
+            </div>
+            <div class="col-auto mt-3 d-flex align-items-center justify-content-center me-sm-4">
+                <div class="borders-6">
+                    <button class="button color-6" data-filter=".Garlic">
+                        <img src="~/front/images/food-6.png"
+                             alt="">
+                        <p class="fw-bold">Garlic</p>
+                    </button>
+                </div>
+            </div>
+            <div class="col-auto mt-3 d-flex align-items-center justify-content-center me-sm-4">
+                <div class="borders-7">
+                    <button class="button color-7" data-filter=".Pasta">
+                        <img src="~/front/images/food-7.png"
+                             alt="">
+                        <p class="fw-bold">Pasta</p>
+                    </button>
+                </div>
+            </div>
+            <div class="col-auto mt-3 d-flex align-items-center justify-content-center  me-sm-4">
+                <div class="borders-8">
+                    <button class="button color-8" data-filter=".Noodles">
+                        <img src="~/front/images/food-8.png"
+                             alt="">
+                        <p class="fw-bold">Noodles</p>
+                    </button>
+                </div>
+            </div>
+            <div class="col-auto mt-3 d-flex align-items-center justify-content-center  me-sm-4">
+                <div class="borders-9">
+                    <button class="button color-9" data-filter=".Beverages">
+                        <img src="~/front/images/food-2.png"
+                             alt="">
+                        <p class="fw-bold">Beverages</p>
+                    </button>
+                </div>
+            </div>
+            <div class="col-auto mt-3 d-flex align-items-center justify-content-center  me-sm-4">
+                <div class="borders-10">
+                    <button class="button color-10" data-filter=".ColdCoffee">
+                        <img src="~/front/images/food-2.png"
+                             alt="">
+                        <p class="fw-bold">Cold Coffee</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row special-list">
+        <div class="col-12 col-lg-8  mt-5 mt-lg-0 overflow-hidden">
+            <div class="row isotop-row">
+                <div class="col-4 special-grid mb-5 Burger  Frankie Fries Noodles ColdCoffee"
+                     data-category="transition">
+                    <div class="addtocart add-food">
+                        <img src="~/front/images/food.png" alt=""
+                             class="img-fluid">
+                    </div>
+                </div>
+
+                <div class="col-4 special-grid mb-5 Sandwitch Pizza Garlic Pasta Beverages"
+                     data-category="transition">
+                    <div class="addtocart add-food">
+                        <img src="~/front/images/food.png" alt=""
+                             class="img-fluid">
+                    </div>
+                </div>
+
+                <div class="col-4 special-grid mb-5 Burger Frankie Fries Noodles" data-category="transition">
+                    <div class="addtocart add-food">
+                        <img src="~/front/images/food.png" alt=""
+                             class="img-fluid">
+                    </div>
+                </div>
+
+                <div class="col-4 special-grid mb-5 Sandwitch Pizza Garlic Beverages ColdCoffee"
+                     data-category="transition">
+                    <div class="addtocart add-food">
+                        <img src="~/front/images/food.png" alt=""
+                             class="img-fluid">
+                    </div>
+                </div>
+
+                <div class="col-4 special-grid mb-5 Burger Frankie Fries Pasta Noodles"
+                     data-category="transition">
+                    <div class="addtocart add-food">
+                        <img src="~/front/images/food.png" alt=""
+                             class="img-fluid">
+                    </div>
+                </div>
+
+                <div class="col-4 special-grid mb-5 Sandwitch Pizza Garlic Beverages"
+                     data-category="transition">
+                    <div class="addtocart add-food">
+                        <img src="~/front/images/food.png" alt=""
+                             class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 col-lg-4 p-0">
+            <div class="place-order">
+                <h5>My Order</h5>
+            </div>
+            <div class="order-details">
+                <div class="row">
+                    <div class="col-12 address-div">
+                        <div class="d-flex justify-content-between">
+                            <div class="addres-line">
+                                <p class="fw-bolder">122, Rajiv Nagar, Azad Road,</p>
+                                <p class="fw-bolder"> New Delhi</p>
+                                <p class="mt-4 d-none d-sm-flex align-items-center fw-bolder">
+                                    <i class="ri-time-line me-3"></i>
+                                    20
+                                    min
+                                </p>
+                            </div>
+
+                            <div class="edit">
+                                <a href="#" class="d-flex align-items-center fw-bolder">
+                                    Edit <i class="ri-pencil-fill"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row p-0" id="add-foods">
+                        <div class="col-12 order-div mt-2 mt-md-5">
+                            <div class="d-flex align-items-center">
+                                <div class="order-img px-3">
+                                    <img src="~/front/images/Shack-Burger.png" alt="">
+                                </div>
+
+                                <div class="d-flex justify-content-between w-100">
+                                    <div class="order-name">
+                                        <p class="fw-bolder">Aloo Tikki</p>
+                                        <p>Burger</p>
+                                        <p class="fw-bolder">Rs 69</p>
+                                    </div>
+                                    <div class="order-name text-end">
+                                        <p class="fw-bold">Rs 138</p>
+                                        <div class="d-flex align-items-center mt-2 cart-nav">
+                                            <a href="#">-</a>
+                                            <p class="fw-bolder mx-3 item-count">2</p>
+                                            <a href="#">+</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 order-div mt-2 mt-md-5 ">
+                            <div class="d-flex align-items-center">
+                                <div class="order-img px-4">
+                                    <img src="~/front/images/order-pizza.png" alt="">
+                                </div>
+
+                                <div class="d-flex justify-content-between w-100">
+                                    <div class="order-name">
+                                        <p class="fw-bolder">Paneer Makhni</p>
+                                        <p>Pizza</p>
+                                        <p class="fw-bolder">Rs 189</p>
+                                    </div>
+                                    <div class="order-name text-end">
+                                        <p class="fw-bold">Rs 378</p>
+                                        <div class="d-flex align-items-center mt-2">
+                                            <a href="#">-</a>
+                                            <p class="fw-bolder mx-3">2</p>
+                                            <a href="#">+</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 order-div mt-2 mt-md-5 ">
+                            <div class="d-flex align-items-center">
+                                <div class="order-img px-4">
+                                    <img src="~/front/images/order-pizza.png" alt="">
+                                </div>
+
+                                <div class="d-flex justify-content-between w-100">
+                                    <div class="order-name">
+                                        <p class="fw-bolder">Paneer Makhni</p>
+                                        <p>Pizza</p>
+                                        <p class="fw-bolder">Rs 189</p>
+                                    </div>
+                                    <div class="order-name text-end">
+                                        <p class="fw-bold">Rs 378</p>
+                                        <div class="d-flex align-items-center mt-2">
+                                            <a href="#">-</a>
+                                            <p class="fw-bolder mx-3">2</p>
+                                            <a href="#">+</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-md-12  promo-code-input mt-2 mt-md-5 p-0 position-relative px-2">
+                        <input type="text" placeholder="Promo Code">
+                        <a href="#" class="apply-btn">Apply</a>
+                    </div>
+
+                    <div class="col-6 col-md-12 order-div mt-2 mt-md-5 w-sm-100 px-2">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="order-total">
+                                <p class="d-none d-md-block">SubTotal</p>
+                                <p class="d-none d-md-block">Delivery</p>
+                                <p class="fw-bolder">Total</p>
+                            </div>
+                            <div class="order-total text-end">
+                                <p class="d-none d-md-block">Rs 516</p>
+                                <p class="d-none d-md-block">Free</p>
+                                <p class="fw-bolder mt-1">Rs 516</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-4 details text-center">
+                        <a href="checkout.html" class="order-now d-block text-white">Order Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="CombosOffers">
+    <!-- Combos and Offers -->
+    <div class="spacerX">
+        <div class="row Section-Heading">
+            <div class="col-12 text-center">
+                <h4 class="fw-bolder">Papular</h4>
+                <h3 class="fw-bolder">Food One Category</h3>
+            </div>
+        </div>
+
+        <div class="row justify-content-center align-items-lg-center sec-margin">
+            <div class="col-12 col-sm-7 col-lg-5 text-end order-1">
+                <a href="#" class="d-block">
+                    <img src="~/front/images/offer-product-1.png" alt="" class="img-fluid">
+                </a>
+            </div>
+
+            <div class="col-12 col-sm-12 col-lg-4 order-2 order-sm-3 order-lg-2 mt-4 mt-lg-0">
+                <div class="d-sm-flex d-lg-block text-center">
+                    <a href="#" class="d-block py-2 pe-sm-4 pb-lg-4 pe-lg-0">
+                        <img src="~/front/images/offer-product-2.png" alt="" class="img-fluid">
+                    </a>
+                    <a href="#" class="d-block py-2 ps-sm-4 pt-lg-4 ps-lg-0 ">
+                        <img src="~/front/images/offer-product-3.png" alt="" class="img-fluid">
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="col-12 col-sm-5 col-lg-3 order-3 order-sm-2 order-lg-3 mt-4 mt-sm-0 text-center text-lg-start">
+                <a href="#" class="d-block">
+                    <img src="~/front/images/offer-product-4.png" alt="" class="img-fluid">
+                </a>
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
+
+
+<!-- delicious -->
+<section class="delicious-Pizza position-relative">
+    <div class="spacerX">
+        <div class="row">
+            <div class="col-12 col-md-8 col-lg-7 col-xl-6 text-center text-md-start delicious-content">
+                <h4 class="fw-bolder">
+                    Slim just as it should be, crunchy and delicious, it can be in “classic” or black variant, an
+                    ideal base for carefully.
+                </h4>
+
+                <div class="row justify-content-center justify-content-sm-start">
+                    <div class="col-12 col-sm-6 text-start">
+                        <div class="d-flex delicious-items align-items-center">
+                            <img src="~/front/images/40Items.png" alt="" class="img-fluid">
+                            <h2 class="fw-bolder">Over 40 Items <br>in Menu</h2>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 text-start">
+                        <div class="d-flex delicious-items align-items-center">
+                            <img src="~/front/images/OnlineOrder.png" alt="" class="img-fluid">
+                            <h2 class="fw-bolder">24 Hours Online <br>ordering</h2>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 text-start">
+                        <div class="d-flex delicious-items align-items-center">
+                            <img src="~/front/images/SafeandSecure.png" alt="" class="img-fluid">
+                            <h2 class="fw-bolder">Safe and Secure <br>Delivery</h2>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6 text-start">
+                        <div class="d-flex delicious-items align-items-center">
+                            <img src="~/front/images/SpecialOrders.png" alt="" class="img-fluid">
+                            <h2 class="fw-bolder">
+                                For Special Orders <br>
+                                <a href="#" class="call">Call : 0982 348 599</a>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<!-- RESERVATION -->
+<section class="Reservation">
+    <div>
+        <div class="row Section-Heading">
+            <div class="col-12 text-center">
+                <h4 class=" ">RESERVATION</h4>
+                <h3 class="fw-bolder">Book Your Table</h3>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-10 col-sm-8 col-md-8 col-lg-9 col-xl-8 col-xxl-7">
+                <form class="Reservation-Form">
+                    <ul class="row">
+                        <li class="col-12 col-lg-6">
+                            <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="NAME">
+                        </li>
+
+                        <li class="col-12 col-lg-6">
+                            <input type="text" class="form-control" aria-describedby="emailHelp"
+                                   placeholder="EMAIL">
+                        </li>
+
+                        <li class="col-12 col-lg-6">
+                            <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="DATE">
+                        </li>
+
+                        <li class="col-12 col-lg-6">
+                            <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="TIME">
+                        </li>
+
+                        <li class="col-12 col-lg-6">
+                            <input type="text" class="form-control" aria-describedby="emailHelp"
+                                   placeholder="PEOPLE">
+                        </li>
+
+                        <li class="col-12 col-lg-6">
+                            <button type="submit" class="btn Form-Submit">FIND A TABLE</button>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

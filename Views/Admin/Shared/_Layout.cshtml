@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title -  Admin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="~/admin/images/favicon.ico">
+     <link href="~/admin/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- jsvectormap css -->
+    <link href="~/admin/libs/jsvectormap/css/jsvectormap.min.css" rel="stylesheet" type="text/css" />
+
+    <!--Swiper slider css-->
+    <link href="~/admin/libs/swiper/swiper-bundle.min.css" rel="stylesheet" type="text/css" />
+
+    <!--datatable css-->
+    <link href="~/admin/libs/datatables/css/dataTables.bootstrap5.min.css" rel="stylesheet" type="text/css" />
+   
+    <!--datatable responsive css-->
+    <link href="~/admin/libs/datatables/css/responsive.bootstrap.min.css" rel="stylesheet" type="text/css" />
+    
+    <link href="~/admin/libs/datatables/css/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+    
+    <!-- end: datatable css-->
+
+    <!-- Layout config Js -->
+    <script src="~/admin/js/layout.js"></script>
+    <!-- Bootstrap Css -->
+    <link href="~/admin/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- Icons Css -->
+    <link href="~/admin/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <!-- App Css-->
+    <link href="~/admin/css/app.min.css" rel="stylesheet" type="text/css" />
+    <!-- custom Css-->
+    <link href="~/admin/css/custom.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/front/css/toastr.min.css">
+</head>
+
+<body>
+    
+    <!-- Begin page -->
+    <div id="layout-wrapper">
+
+        <partial name="~/Views/Admin/Shared/_Header.cshtml" />
+
+        <!-- ========== App Menu ========== -->
+        <partial name="~/Views/Admin/Shared/_Sidebar.cshtml" />
+
+        <!-- Left Sidebar End -->
+        <!-- Vertical Overlay-->
+        <div class="vertical-overlay"></div>
+
+        <!-- ============================================================== -->
+        <!-- Start right Content here -->
+        <!-- ============================================================== -->
+        <div div class="main-content">
+
+            <div class="page-content">
+                @RenderBody()
+                <!-- container-fluid -->
+            </div>
+            <!-- End Page-content -->
+
+            <partial name="~/Views/Admin/Shared/_Footer.cshtml" />
+        </div>
+        <!-- end main content-->
+
+    </div>
+    <!-- END layout-wrapper -->
+
+
+
+    <!--start back-to-top-->
+    <button onclick="topFunction()" class="btn btn-danger btn-icon" id="back-to-top">
+        <i class="ri-arrow-up-line"></i>
+    </button>
+    <!--end back-to-top-->
+
+    <!--preloader-->
+    <div id="preloader">
+        <div id="status">
+            <div class="spinner-border text-primary avatar-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="~/admin/libs/jquery/jquery-3.6.0.min.js"></script>
+    <script src="~/admin/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/admin/libs/simplebar/simplebar.min.js"></script>
+    <script src="~/admin/libs/node-waves/waves.min.js"></script>
+    <script src="~/admin/libs/feather-icons/feather.min.js"></script>
+    <script src="~/front/js/toastr.min.js"></script>
+    <script src="~/admin/js/pages/plugins/lord-icon-2.1.0.js"></script>
+    <script src="~/admin/js/plugins.js"></script>
+
+    <!-- Sweet Alerts js -->
+     <script src="~/admin/libs/sweetalert2/sweetalert2.min.js"></script>
+
+    <!-- data tables -->
+    <script src="~/admin/libs/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="~/admin/libs/datatables/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/admin/libs/datatables/js/dataTables.responsive.min.js"></script>
+    <script src="~/admin/libs/datatables/js/dataTables.buttons.min.js"></script>
+    <script src="~/admin/libs/datatables/js/buttons.print.min.js"></script>
+    <script src="~/admin/libs/datatables/js/buttons.html5.min.js"></script>
+    <script src="~/admin/libs/datatables/js/pdfmake/vfs_fonts.js"></script>
+    <script src="~/admin/libs/datatables/js/pdfmake/pdfmake.min.js"></script>
+    <script src="~/admin/libs/datatables/js/jszip/jszip.min.js"></script>
+
+    <!-- apexcharts -->
+    <script src="~/admin/libs/apexcharts/apexcharts.min.js"></script>
+
+    <!-- Vector map-->
+    <script src="~/admin/libs/jsvectormap/js/jsvectormap.min.js"></script>
+    <script src="~/admin/libs/jsvectormap/maps/world-merc.js"></script>
+
+    <!--Swiper slider js-->
+    <script src="~/admin/libs/swiper/swiper-bundle.min.js"></script>
+
+    <!-- cleave.js -->
+    <script src="~/admin/libs/cleave.js/cleave.min.js"></script>
+
+    <!-- Dashboard init -->
+    <script src="~/admin/js/pages/dashboard-ecommerce.init.js"></script>
+
+    <!-- App js -->
+    <script src="~/admin/js/app.js"></script>
+
+    <script>
+        var chartColumnColors = getChartColorsArray("column_chart"),
+            chartColumnDatatalabelColors =
+                (chartColumnColors &&
+                    ((options = {
+                        chart: { height: 350, type: "bar", toolbar: { show: !1 } },
+                        plotOptions: { bar: { horizontal: !1, columnWidth: "45%", endingShape: "rounded" } },
+                        dataLabels: { enabled: !1 },
+                        stroke: { show: !0, width: 2, colors: ["transparent"] },
+                        series: [
+                            { name: "Gaurds", data: [46, 57, 59, 54, 62, 58, 64] },
+                            // { name: "Revenue", data: [74, 83, 102, 97, 86, 106, 93, 114, 94] },
+                            // { name: "Free Cash Flow", data: [37, 42, 38, 26, 47, 50, 54, 55, 43] },
+                        ],
+                        colors: chartColumnColors,
+                        xaxis: { categories: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"] },
+                        yaxis: { title: { text: "Count" } },
+                        grid: { borderColor: "#f1f1f1" },
+                        fill: { opacity: 1 },
+                        tooltip: {
+                            y: {
+                                formatter: function (e) {
+                                    return  e + " Present";
+                                },
+                            },
+                        },
+                    }),
+                        (chart = new ApexCharts(document.querySelector("#column_chart"), options)).render()),
+                    getChartColorsArray("column_chart_datalabel"));
+
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

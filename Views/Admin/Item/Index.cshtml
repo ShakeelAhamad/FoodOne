@@ -1,0 +1,379 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model FoodOne.ViewModels.ItemViewModel
+
+@{
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+
+            <div class="h-100">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                            <h4 class="mb-sm-0">@ViewBag.Title Master </h4>
+
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item">@ViewBag.Title Master</li>
+                                    <li class="breadcrumb-item active">@ViewBag.Title List</li>
+                                </ol>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--end col-->
+                </div>
+
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="d-flex align-items-center flex-wrap gap-2">
+                                    <div class="flex-grow-1">
+                                        <h5 class="card-title mb-0">@ViewBag.Title List</h5>
+                                    </div>
+                                    <div class="flex-shrink-0">
+                                        <div class="hstack text-nowrap gap-2">
+                                            <a href="#addItemModal" role="button" data-bs-toggle="modal" class="btn btn-primary add-btn"><i class="ri-add-fill me-1 align-bottom"></i> Add @ViewBag.Title</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <table id="itemListTable" class="table nowrap align-middle" style="width:100%">
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end row-->
+
+                <div class="row">
+                </div>
+            </div> <!-- end .h-100-->
+        </div> <!-- end col -->
+    </div>
+</div>
+<!-- add item modal -->
+<div id="addItemModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-area="Admin" asp-controller="Item" asp-action="Add" method="post" enctype="multipart/form-data" id="ItemForm">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" value="0"/>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Add @ViewBag.Title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="ItemName" class="form-label">Item Name</label>
+                        <input asp-for="ItemName" class="form-control" placeholder="Enter your item name" />
+                        <span asp-validation-for="ItemName" class="text-danger"></span>
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Category <span class="text-danger">*</span> </label>
+                        <select asp-for="CategoryId" class="form-control" id="CategoryId">
+                        </select>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Price" class="form-label">Price</label>
+                        <input asp-for="Price" class="form-control" placeholder="Enter your price" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="Image" class="form-label">Image</label>
+                        <input asp-for="Image" type="file" class="form-control" />
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="ItemDetail" class="form-label">Item Details</label>
+                        <textarea asp-for="ItemDetail" class="form-control" placeholder="Enter your item detail" rows="3"></textarea>
+                        <span asp-validation-for="ItemDetail" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Status</label>
+                        <div class="mt-4 mt-lg-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" asp-for="Status" type="radio" id="status1" value="1" />
+                                <label class="form-check-label" for="status1">Active</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" asp-for="Status" type="radio" id="status2" value="0" />
+                                <label class="form-check-label" for="status2">Inactive</label>
+                            </div>
+                            <div>
+                                <span asp-validation-for="Status" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary"><i id="btn_spin"></i> Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end: add Items modal -->
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        getItems();
+        document.addEventListener("DOMContentLoaded", function() {
+            
+        });
+        // Configure jQuery Validate / Unobtrusive to use Bootstrap 5 classes
+        // This ensures 'is-invalid' is added instead of default 'input-validation-error'
+        if (window.jQuery && $.validator) {
+            $.validator.setDefaults({
+                errorClass: 'invalid-feedback',
+                validClass: 'is-valid',
+                highlight: function(element) {
+                    // add bootstrap invalid state
+                    $(element).addClass('is-invalid').removeClass('is-valid');
+                },
+                unhighlight: function(element) {
+                    $(element).removeClass('is-invalid').addClass('is-valid');
+                },
+                errorPlacement: function(error, element) {
+                    // Place the error message correctly for input groups, radios and checkboxes
+                    if (element.parent('.input-group').length) {
+                        error.insertAfter(element.parent());
+                    } else if (element.is(':radio') || element.is(':checkbox')) {
+                        // append to the nearest .mb-3 or form-check container
+                        var container = element.closest('.form-check, .mb-3');
+                        if (container.length) error.appendTo(container);
+                        else error.insertAfter(element);
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+        }
+        bindCategoryDropdown(0);
+        function bindCategoryDropdown(selectedId = 0) {
+            $.ajax({
+                url: "/admin/category/categorylist",
+                type: "GET",
+                success: function(response) {
+                    let options = '<option value="">Select Category</option>';
+                    $.each(response, function(index, item) {
+                        let selected = item.id == selectedId
+                            ? "selected"
+                            : "";
+                        options += `
+                            <option value="${item.id}" ${selected}>
+                                ${item.name}
+                            </option>`;
+                    });
+                    $("#CategoryId").html(options);
+                }
+            });
+        }
+
+        $("#ItemForm").submit(function(e) {
+            e.preventDefault();
+            // Clear previous validation states
+            function clearValidation() {
+                $("#ItemForm").find('.is-invalid').removeClass('is-invalid');
+                $("#ItemForm").find("span[data-valmsg-for]").removeClass('d-block').text('');
+            }
+            clearValidation();
+            // Run client-side unobtrusive validation if available
+            if (typeof $("#ItemForm").valid === 'function') {
+                if (!$("#ItemForm").valid()) {
+                    return; // stop submission, unobtrusive will show messages
+                }
+            }
+            let formData = new FormData(this);
+            $.ajax({
+                url: $(this).attr('action') || '/admin/item/Add',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function() {
+                    $("#btn_spin").addClass("spinner-border spinner-border-sm");
+                },
+                complete: function() {
+                    $("#btn_spin").removeClass('spinner-border spinner-border-sm');
+                },
+                success: function(response) {
+                    if (response && response.success === true) {
+                        toastr.success(response.message || 'Saved');
+                        // hide modal if present
+                        var modalEl = document.getElementById('addItemModal');
+                        if (modalEl) {
+                            var modal = bootstrap.Modal.getInstance(modalEl) || new bootstrap.Modal(modalEl);
+                            modal.hide();
+                        }
+                        // Refresh DataTable if initialized, otherwise reinit
+                        if ($.fn.DataTable.isDataTable('#PartnerListTable')) {
+                            $('#PartnerListTable').DataTable().ajax.reload();
+                        } else {
+                            getItems();
+                        }
+                        $("#ItemForm")[0].reset();
+                        $('#currentImagePreview').remove();
+                        bindCategoryDropdown(0);
+                    } else if (response && response.success === false) {
+                        if (response.errors) {
+                            $.each(response.errors, function(field, messages) {
+                                var key = (field || '').toString().split('.').pop();
+                                var $el = $("[name='" + key + "']");
+                                var $msg = $("span[data-valmsg-for='" + key + "']");
+                                if ($el.length) $el.each(function() { $(this).addClass('is-invalid'); });
+                                if ($msg.length) $msg.addClass('invalid-feedback d-block').text(messages[0]);
+                                else toastr.error(messages[0]);
+                            });
+                        } else if (response.message) {
+                            toastr.error(response.message);
+                        } else {
+                            toastr.error('Save failed');
+                        }
+                    } else {
+                        toastr.error('Unexpected server response');
+                    }
+                },
+                error: function(xhr) {
+                    var json;
+                    try { json = xhr.responseJSON || JSON.parse(xhr.responseText); } catch (e) { }
+                    if (json && json.errors) {
+                        $.each(json.errors, function(field, messages) {
+                            var key = (field || '').toString().split('.').pop();
+                            var $el = $("[name='" + key + "']");
+                            var $msg = $("span[data-valmsg-for='" + key + "']");
+                            if ($el.length) $el.each(function() { $(this).addClass('is-invalid'); });
+                            if ($msg.length) $msg.addClass('invalid-feedback d-block').text(messages[0]);
+                        });
+                    } else {
+                        toastr.error('Server error');
+                    }
+                }
+            });
+
+        });
+
+
+        function getItems() {
+            // Destroy existing table if present
+            if ($.fn.DataTable.isDataTable('#itemListTable')) {
+                $('#itemListTable').DataTable().destroy();
+                $('#itemListTable').empty();
+            }
+
+            $('#itemListTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    url: '/admin/item/list',
+                    type: 'POST'
+                },
+                columns: [
+                    { data: 'itemName', title: 'Item Name' },
+                    { data: 'categoryName', title: 'Category Name' },
+                    { data: 'price', title: 'Price', render: function(data){ return data != null ? data.toFixed(2) : ''; } },
+                    {
+                        data: 'imageUrl', title: 'Image', orderable: false, searchable: false, render: function(data) {
+                        return data ? '<img src="'+data+'" style="height:40px"/>' : ''; }
+                    },
+                    { data: 'statusStr', title: 'Status' },
+                    {
+                        data: 'Id', title: 'Actions', orderable: false, searchable: false, render: function(data, type, row) {
+                            // Convert row object into JSON string
+                            var rowData = encodeURIComponent(JSON.stringify(row));
+                            return `
+                                <div class="hstack gap-3 flex-wrap">
+                                            <a href="javascript:void(0);" class="link-success fs-16 btn-edit" data-row="${rowData}" data-id="${data}" title="Edit"><i class="ri-edit-2-line"></i></a>
+                                            <a href="javascript:void(0);" class="link-danger fs-16 btn-delete" data-id="${data}" onclick="deleteItem(${row.id})" title="Delete"><i class="ri-delete-bin-line"></i></a>
+                                </div>`;
+                        }
+                    }
+                ],
+                order: [[0, 'asc']]
+            });
+
+            
+
+        }
+
+
+        // Wire up edit / delete after draw
+        $('#itemListTable').on('click', '.btn-edit', function(e) {
+            e.preventDefault();
+            $("#ItemForm")[0].reset();
+            var row = JSON.parse(
+                decodeURIComponent($(this).attr("data-row"))
+            );
+            console.log('Editing row:', row);
+            $("[name='Id']").val(row.id || 0);
+            $("[name='ItemName']").val(row.itemName);
+            $("[name='Price']").val(row.price);
+            $("[name='ItemDetail']").val(row.itemDetail);
+            $("[name='Status'][value='" + row.status + "']").prop('checked', true);
+            if (row.ImageUrl) {
+                if (!$('#currentImagePreview').length) {
+                    $("#ItemForm .mb-3").first().after('<div class="mb-3" id="currentImagePreview"><label class="form-label">Current Image</label><div><img src="' + row.imageUrl + '" style="max-height:80px"/></div></div>');
+                } else {
+                    $('#currentImagePreview img').attr('src', row.imageUrl);
+                }
+            } else {
+                $('#currentImagePreview').remove();
+            }
+            bindCategoryDropdown(row.categoryId);
+            $("#addItemModal").modal("show");
+           
+        });
+
+
+        /*=======>DELETE ITEMS IN LIST=>START<=======*/
+        function deleteItem(item_id) {
+            Swal.fire({
+                html: '<div class="mt-3"><lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon><div class="mt-4 pt-2 fs-15 mx-5"><h4>Are you Sure ?</h4><p class="text-muted mx-4 mb-0">Are you Sure You want to Delete this Account ?</p></div></div>',
+                showCancelButton: !0,
+                confirmButtonClass: "btn btn-primary w-xs me-2 mb-1",
+                confirmButtonText: "Yes, Delete It!",
+                cancelButtonClass: "btn btn-danger w-xs mb-1",
+                buttonsStyling: !1,
+                showCloseButton: !0
+            }).then(function(result) {
+                if (result.value) {
+                    //Ajax Call
+                    $.ajax({
+                        url: "/admin/item/delete",
+                        type: "POST",
+                        data: { id: item_id },
+                        success: function(response) {
+                            if (response.success) {
+                                toastr.success(response.message);
+                                // Reload DataTable or item list
+                                getItemList();
+                            } else {
+                                toastr.error(response.message);
+                            }
+                        },
+                        error: function() {
+                            toastr.error("Something went wrong.");
+                        }
+                    });
+
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+
+                }
+            });
+        }
+
+    </script>
+}

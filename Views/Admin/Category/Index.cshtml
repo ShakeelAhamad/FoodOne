@@ -1,0 +1,323 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model FoodOne.ViewModels.CategoryViewModel;
+@{
+}
+<div class="container-fluid">
+<div class="row">
+    <div class="col">
+
+        <div class="h-100">
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0">@ViewBag.Title Master </h4>
+
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item">@ViewBag.Title Master</li>
+                                <li class="breadcrumb-item active">@ViewBag.Title List</li>
+                            </ol>
+                        </div>
+
+                    </div>
+                </div>
+                <!--end col-->
+            </div>
+
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="d-flex align-items-center flex-wrap gap-2">
+                                <div class="flex-grow-1">
+                                    <h5 class="card-title mb-0">@ViewBag.Title List</h5>
+                                </div>
+                                <div class="flex-shrink-0">
+                                    <div class="hstack text-nowrap gap-2">
+                                        <a href="#addPartnerModal" role="button" data-bs-toggle="modal" class="btn btn-primary add-btn"><i class="ri-add-fill me-1 align-bottom"></i> Add @ViewBag.Title</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                                <table id="categoriesTable" class="table nowrap align-middle table-border" style="width:100%">
+                               
+                                <tbody>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end row-->
+
+            <div class="row">
+            </div>
+        </div> <!-- end .h-100-->
+    </div> <!-- end col -->
+</div>
+</div>
+<!-- add partner modal -->
+<div id="addPartnerModal" class="modal fade" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-area="Admin" asp-controller="Category" asp-action="Add" method="post" enctype="multipart/form-data" id="CategoryForm" >
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" value="0" />
+                <div class="modal-header">
+                    <h5 class="modal-title" id="myModalLabel">Add @ViewBag.Title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"> </button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="CategoryName" class="form-label">Category Name</label>
+                        <input asp-for="CategoryName" class="form-control" placeholder="Enter your category name" />
+                        <span asp-validation-for="CategoryName" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="CategoryImage" class="form-label">Category Image</label>
+                        <input asp-for="CategoryImage" type="file" class="form-control" />
+                        <span asp-validation-for="CategoryImage" class="text-danger"></span>
+                    </div>
+                    <div class="mb-3">
+                        <label for="" class="form-label">Status</label>
+                        <div class="mt-4 mt-lg-0">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" asp-for="Status" type="radio" id="status1" value="1" />
+                                <label class="form-check-label" for="status1">Active</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" asp-for="Status" type="radio" id="status2" value="0" />
+                                <label class="form-check-label" for="status2">Inactive</label>
+                            </div>
+                            <div>
+                                <span asp-validation-for="Status" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary"> <i id="btn_spin"></i> Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end: add partner modal -->
+
+@section Scripts{
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            getCategory();
+
+            $(document).on("click", ".add-btn", function () {
+                // Reset all form fields
+                $("#CategoryForm")[0].reset();
+
+                // Reset hidden ID field
+                $("#ID").val(0);
+
+                // Change modal title
+                $("#myModalLabel").text("Add Category");
+
+            });
+        });
+        // Configure jQuery Validate / Unobtrusive to use Bootstrap 5 classes
+        // This ensures 'is-invalid' is added instead of default 'input-validation-error'
+        if (window.jQuery && $.validator) {
+            $.validator.setDefaults({
+                errorClass: 'invalid-feedback',
+                validClass: 'is-valid',
+                highlight: function(element) {
+                    // add bootstrap invalid state
+                    $(element).addClass('is-invalid').removeClass('is-valid');
+                },
+                unhighlight: function(element) {
+                    $(element).removeClass('is-invalid').addClass('is-valid');
+                },
+                errorPlacement: function(error, element) {
+                    // Place the error message correctly for input groups, radios and checkboxes
+                    if (element.parent('.input-group').length) {
+                        error.insertAfter(element.parent());
+                    } else if (element.is(':radio') || element.is(':checkbox')) {
+                        // append to the nearest .mb-3 or form-check container
+                        var container = element.closest('.form-check, .mb-3');
+                        if (container.length) error.appendTo(container);
+                        else error.insertAfter(element);
+                    } else {
+                        error.insertAfter(element);
+                    }
+                }
+            });
+        }
+       
+
+        $("#CategoryForm").submit(function (e) {
+            e.preventDefault();
+            // Clear previous validation states
+            function clearValidation() {
+                $("#CategoryForm").find('.is-invalid').removeClass('is-invalid');
+                $("#CategoryForm").find("span[data-valmsg-for]").removeClass('d-block').text('');
+            }
+            clearValidation();
+            // Run client-side unobtrusive validation if available
+            if (typeof $("#CategoryForm").valid === 'function') {
+                if (!$("#CategoryForm").valid()) {
+                    return; // stop submission, unobtrusive will show messages
+                }
+            }
+            let formData = new FormData(this);
+            $.ajax({
+                url: $(this).attr('action') || '/admin/Category/Add',
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function() {
+                    $("#btn_spin").addClass("spinner-border spinner-border-sm");
+                },
+                complete: function() {
+                    $("#btn_spin").removeClass('spinner-border spinner-border-sm');
+                },
+                success: function (response) {
+                    if (response && response.success === true) {
+                        toastr.success(response.message);
+                        $('#btn_spin').removeClass('spinner-border spinner-border-sm');
+                        $("#addPartnerModal")
+                        .modal("hide");
+                        getCategory();
+                        $("#CategoryForm")[0].reset();
+                    }else if (response && response.success === false) {
+                       if (response.errors) {
+                            $.each(response.errors, function(field, messages) {
+                                var key = (field || '').toString().split('.').pop();
+                                var $el = $("[name='" + key + "']");
+                                var $msg = $("span[data-valmsg-for='" + key + "']");
+                                if ($el.length) $el.each(function() { $(this).addClass('is-invalid'); });
+                                if ($msg.length) $msg.addClass('invalid-feedback d-block').text(messages[0]);
+                                else toastr.error(messages[0]);
+                            });
+                        } else if (response.message) {
+                            toastr.error(response.message);
+                        } else {
+                            toastr.error('Save failed');
+                        }
+                    }else {
+                        toastr.error('Unexpected server response');
+                    }
+                },
+                error: function(xhr) {
+                    var json;
+                    try { json = xhr.responseJSON || JSON.parse(xhr.responseText); } catch (e) { }
+                    if (json && json.errors) {
+                        $.each(json.errors, function(field, messages) {
+                            var key = (field || '').toString().split('.').pop();
+                            var $el = $("[name='" + key + "']");
+                            var $msg = $("span[data-valmsg-for='" + key + "']");
+                            if ($el.length) $el.each(function() { $(this).addClass('is-invalid'); });
+                            if ($msg.length) $msg.addClass('invalid-feedback d-block').text(messages[0]);
+                        });
+                    } else {
+                        toastr.error('Server error');
+                    }
+                }
+            });
+        });
+
+
+        function getCategory(){
+            $('#categoriesTable').DataTable({
+                processing: true,
+                destroy: true,
+                serverSide: true,
+                ajax: {
+                    url: "/admin/category/list",
+                    type: 'POST'
+                },
+                columns: [
+                    { data: 'categoryName', title: 'Name' },
+                    {
+                      data: 'categoryImageUrl',
+                      title: 'Image',
+                      render: function(d) {
+                        if (!d) return ''; 
+                        return '<img src="' + d + '" style="height:40px" />';
+                      }
+                    },
+                    { data: 'statusStr', title: 'Status' },
+                    {
+                        data: 'id', title: 'Actions', orderable: false, searchable: false, render: function(data, type, row) {
+                            // Convert row object into JSON string
+                            var rowData = encodeURIComponent(JSON.stringify(row));
+                            //console.log(rowData);
+                            var html = '';
+                                html +='<div class="hstack gap-3 flex-wrap">';
+                                   html+='<a href="javascript:void(0);" data-row="' + rowData + '" class="link-success fs-16 btnEditCategory" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Edit" data-bs-original-title="Edit"><i class="ri-edit-2-line"></i></a>';
+                                   html+='<div class="position-relative cursor-p ointer" data-bs-toggle="tooltip" data-bs-placement="top" aria-label="Delete" data-bs-original-title="Delete">';
+                                     html+='<a class="link-danger fs-16 stretched-link" onclick="deleteCategory('+row.id+')">';
+                                        html+='<i class="ri-delete-bin-line"></i>';
+                                     html+='</a>';
+                                   html+='</div>';
+                                html+='</div>';
+                            return html
+                        }
+                    }
+                ]
+            });
+        }
+
+        $(document).on("click", ".btnEditCategory", function () {
+            $("#CategoryForm")[0].reset();
+            var row = JSON.parse(
+                    decodeURIComponent($(this).attr("data-row"))
+             );
+            $("#Id").val(row.id);
+            $("input[name='ID']").val(row.id);
+            $("#CategoryName").val(row.categoryName);
+            $("input[name='Status'][value='" + row.status + "']").prop("checked", true);
+            $("#addPartnerModal").modal("show");
+        });
+
+/*=======>DELETE Category IN LIST=>START<=======*/
+function deleteCategory(category_id){
+    Swal.fire({
+		html: '<div class="mt-3"><lord-icon src="https://cdn.lordicon.com/gsqxdxog.json" trigger="loop" colors="primary:#f7b84b,secondary:#f06548" style="width:100px;height:100px"></lord-icon><div class="mt-4 pt-2 fs-15 mx-5"><h4>Are you Sure ?</h4><p class="text-muted mx-4 mb-0">Are you Sure You want to Delete this Account ?</p></div></div>',
+		showCancelButton: !0,
+		confirmButtonClass: "btn btn-primary w-xs me-2 mb-1",
+		confirmButtonText: "Yes, Delete It!",
+		cancelButtonClass: "btn btn-danger w-xs mb-1",
+		buttonsStyling: !1,
+		showCloseButton: !0
+	}).then(function(result) {
+        if (result.value) {
+            //Ajax Call
+            $.ajax({
+                url: "/admin/category/delete",
+                type: "POST",
+                data: { id: category_id },
+                success: function (response) {
+                    if (response.success) {
+                        toastr.success(response.message);
+                        // Reload DataTable or category list
+                        getCategory();
+                    } else {
+                        toastr.error(response.message);
+                    }
+                },
+                error: function () {
+                    toastr.error("Something went wrong.");
+                }
+            });
+
+        }else if (result.dismiss === Swal.DismissReason.cancel) {
+
+        }
+    });
+}
+
+    </script>
+}

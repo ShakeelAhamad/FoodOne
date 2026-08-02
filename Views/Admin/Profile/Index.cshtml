@@ -1,0 +1,65 @@
+@model FoodOne.ViewModels.AdminProfileViewModel
+@{
+    ViewBag.Title = "Profile";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <div class="h-100">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                            <h4 class="mb-sm-0">@ViewBag.Title</h4>
+                            <div class="page-title-right">
+                                <ol class="breadcrumb m-0">
+                                    <li class="breadcrumb-item">@ViewBag.Title</li>
+                                    <li class="breadcrumb-item active">Update</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <!--end col-->
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-xl-8">
+                        <div class="card">
+                            <div class="card-body">
+                                <form asp-action="Update" asp-controller="Profile" method="post" enctype="multipart/form-data">
+                                    @Html.AntiForgeryToken()
+
+                                    <div class="mb-3">
+                                        <label asp-for="FullName" class="form-label"></label>
+                                        <input asp-for="FullName" class="form-control" />
+                                        <span asp-validation-for="FullName" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Profile Image</label>
+                                        <input asp-for="ImageFile" type="file" class="form-control" />
+                                        <span asp-validation-for="ImageFile" class="text-danger"></span>
+                                        @if (!string.IsNullOrEmpty(Model?.ImageUrl))
+                                        {
+                                            <div class="mt-2">
+                                                <img src="@Model.ImageUrl" alt="Profile" class="img-thumbnail" style="width:120px;height:120px;object-fit:cover;" />
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <div class="card-footer">
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--end row-->
+            </div> <!-- end .h-100-->
+        </div> <!-- end col -->
+    </div>
+</div>
+
+@await Html.PartialAsync("~/Views/Shared/_ValidationScriptsPartial.cshtml")
+

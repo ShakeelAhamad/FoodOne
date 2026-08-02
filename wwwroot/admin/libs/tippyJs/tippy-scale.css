@@ -1,0 +1,112 @@
+.tippy-box[data-animation=scale][data-placement^=top]{transform-origin:bottom}.tippy-box[data-animation=scale][data-placement^=bottom]{transform-origin:top}.tippy-box[data-animation=scale][data-placement^=left]{transform-origin:right}.tippy-box[data-animation=scale][data-placement^=right]{transform-origin:left}.tippy-box[data-animation=scale][data-state=hidden]{transform:scale(.5);opacity:0}
+
+/* ------------------- */
+
+/* custom tippy tooltip, popover */
+/* white popup */
+.tippy-box[data-theme~="whitePopup"], .tippy-box[data-theme~="darkPopup"] {
+    color: #404e67;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    .tippy-arrow {
+        color: #fff;
+    }
+    &[data-placement^=left]{
+        >.tippy-arrow {
+            &:after{
+                content: "";
+                position: absolute;
+                right: -8px;
+                border-color: transparent;
+                border-width: 8px 0px 8px 8px;
+                border-left-color: #ddd;
+                transform-origin: center right;
+                border-style: solid;
+                z-index: -1;
+            }
+        }
+    }
+    &[data-placement^=right]{
+        >.tippy-arrow {
+            &:after{
+                content: "";
+                position: absolute;
+                left: -8px;
+                border-color: transparent;
+                border-width: 8px 8px 8px 0px;
+                border-right-color: #ddd;
+                transform-origin: center right;
+                border-style: solid;
+                z-index: -1;
+            }
+        }
+    }
+    &[data-placement^=top]{
+        >.tippy-arrow {
+            &:after{
+                content: "";
+                position: absolute;
+                bottom: -8px;
+                border-color: transparent;
+                border-width: 8px 8px 0px;
+                border-top-color: #ddd;
+                transform-origin: center right;
+                border-style: solid;
+                z-index: -1;
+            }
+        }
+    }
+    &[data-placement^=bottom]{
+        >.tippy-arrow {
+            &:after{
+                content: "";
+                position: absolute;
+                top: -8px;
+                border-color: transparent;
+                border-width: 0px 8px 8px;
+                border-bottom-color: #ddd;
+                transform-origin: center right;
+                border-style: solid;
+                z-index: -1;
+            }
+        }
+    }
+}
+/* dark popup */
+.tippy-box[data-theme~="darkPopup"] {
+    color: #fff;
+    background-color: #000;
+    border: 1px solid #000;
+    .tippy-arrow {
+        color: #000;
+    }
+    &[data-placement^=left]{
+        >.tippy-arrow {
+            &:after{
+                border-left-color: #000;
+            }
+        }
+    }
+    &[data-placement^=right]{
+        >.tippy-arrow {
+            &:after{
+                border-right-color: #000;
+            }
+        }
+    }
+    &[data-placement^=top]{
+        >.tippy-arrow {
+            &:after{
+                border-top-color: #000;
+            }
+        }
+    }
+    &[data-placement^=bottom]{
+        >.tippy-arrow {
+            &:after{
+                border-bottom-color: #000;
+            }
+        }
+    }
+}

@@ -1,0 +1,126 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    Layout = "~/Views/Admin/Shared/_LayoutLogin.cshtml";
+}
+@model FoodOne.ViewModels.AdminLoginViewModel
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card overflow-hidden">
+            <div class="row g-0">
+                <div class="col-lg-6">
+                    <div class="p-lg-5 p-4 bg-white h-100">
+                        <div class="position-relative h-100 d-flex flex-column justify-content-center align-items-center">
+                            <div class="mb-0">
+                                <a href="#" class="d-block">
+                                    <img src="~/front/images/Logo.png" alt="" class="img-fluid">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end col -->
+                <div class="col-lg-6">
+                    <div class="p-lg-5 p-4">
+                        <div>
+                            <h5 class="text-primary">Welcome Back !</h5>
+                            <p class="text-muted">Sign in to continue to Construction.</p>
+                        </div>
+
+                        <div class="mt-4">
+                            <form id="LoginForm" asp-area="" asp-action="loginaction" asp-controller="Login" method="post" enctype="multipart/form-data">
+                                @Html.AntiForgeryToken()
+                                <div class="mb-3">
+                                    <label asp-for="Email" class="form-label"></label>
+                                    <input type="text" asp-for="Email" id="Email" class="form-control" />
+                                    <span asp-validation-for="Email" class="text-danger invalid-feedback"></span>
+                                </div>
+
+                                <div class="mb-3">
+                                    <div class="float-end">
+                                        <a asp-controller="Login" asp-action="ForgotPassword" class="text-muted">Forgot password?</a>
+                                    </div>
+                                    <label asp-for="Password" class="form-label"></label>
+                                    <div class="position-relative auth-pass-inputgroup mb-3">
+                                        <input type="password" asp-for="Password" id="Password" class="form-control pe-5 password-input" />
+                                        <span asp-validation-for="Password" class="text-danger invalid-feedback"></span>
+                                        <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+                                    </div>
+
+                                </div>
+
+                                <div class="form-check">
+                                    <input asp-for="RememberMe" id="RememberMe" class="form-check-input" />
+                                    <label asp-for="RememberMe" class="form-check-label"></label>
+                                </div>
+                                <div class="mt-4">
+                                    <button class="btn btn-primary w-100" type="submit"> <i id="btn_spin"></i> Sign In</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end card -->
+    </div>
+    <!-- end col -->
+
+</div>
+<!-- end row -->
+@section LoginScripts {
+    <script>
+        $(function() {
+            $('#LoginForm').submit(function(e) {
+                e.preventDefault();
+                $('.invalid-feedback').text('').removeClass('d-block');
+                $('#LoginForm').find('.is-invalid').removeClass('is-invalid');
+                var fd = new FormData(this);
+                $.ajax({
+                    url: '@Url.Action("LoginAction", "Login", new { area = "Admin" })',
+                    type: 'POST',
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function() {
+                        $("#btn_spin").addClass("spinner-border spinner-border-sm");
+                    },
+                    complete: function() {
+                        $("#btn_spin").removeClass('spinner-border spinner-border-sm');
+                    },
+                    success: function(res) {
+                        if (res && res.success) {
+                            toastr.success(res.message);
+                            $('#LoginForm')[0].reset();
+                            setTimeout(function() {
+                                window.location.href = res.redirectUrl;
+                            }, 2500);
+                        } else if (res && res.errors) {
+                            $.each(res.errors, function(field, msgs) {
+                                var key = field.split('.').pop();
+                                $('[name="' + key + '"]').addClass('is-invalid');
+                                $('span[data-valmsg-for="' + key + '"]').addClass('d-block').text(msgs[0]);
+                            });
+                        } else toastr.error(res.message || 'Save failed');
+                    }, error: function(xhr) {
+                        var json;
+                        try {
+                            json = xhr.responseJSON || JSON.parse(xhr.responseText);
+                        } catch (e) {
+                        } if (json && json.errors) {
+                            $.each(json.errors, function(field, msgs) {
+                                var key = field.split('.').pop();
+                                $('[name="' + key + '"]').addClass('is-invalid');
+                                $('span[data-valmsg-for="' + key + '"]').addClass('d-block').text(msgs[0]);
+                            });
+                        } else toastr.error('Server error');
+                    }
+                });
+            });
+        });
+
+    </script>
+}

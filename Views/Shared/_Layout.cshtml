@@ -1,0 +1,336 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - FoodOne</title>
+    <!-- Bootstrap -->
+    
+    <link rel="stylesheet" href="~/front/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="~/front/css/toastr.min.css">
+
+    <link rel="stylesheet" href="~/front/css/remixicon.css">
+
+    <link rel="stylesheet" href="~/front/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/front/css/owl.theme.default.css">
+
+    <link rel="stylesheet" href="~/front/css/animate.css">
+    <link rel="stylesheet" href="~/front/css/animate.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css" />
+
+    <!-- style.css -->
+    <link rel="stylesheet" href="~/front/css/style.css">
+    <link rel="stylesheet" href="~/front/css/responsive.css">
+    <style>
+        .toast-message {
+            font-size: 16px !important;
+        }
+    </style>
+
+</head>
+
+<body class="@ViewData["pageType"]">
+
+    <div class="nav-blacklayer "></div>
+    <!-- Navbar Start -->
+    <nav class="navbar">
+        <div class="mx-5">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-5 col-sm-4 col-md-3  col-lg-2">
+                    <div class="nav-logo">
+                        <a href="index.html">
+                            <img src="~/front/images/Logo.png" alt="" class="img-fluid">
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-auto col-lg-10">
+
+                    <ul class="nav-menu">
+                        <div class="hamburgerr d-lg-none">
+                            <img src="~/front/images/close-fill.svg" alt="" class="close-nav">
+                        </div>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Content("~/Home/Index")">Menu</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Content("~/Home/About")">Our Story</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Content("~/Home/Blog")">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Content("~/Home/Contact")">Contact</a>
+                        </li>
+
+                        <li class=" mx-3 d-none d-lg-block">
+                            <a href="#" class="d-flex align-items-center">
+                                <div>
+                                    <img src="front/images/Scotter.png" alt="" class="">
+                                </div>
+                                <div class="CallOrder">
+                                    <p>Call and Order in</p>
+                                    <h5 class="fw-bolder">+1732-908-4500</h5>
+                                </div>
+                            </a>
+                        </li>
+
+                        <li>
+                            <div class="header-icon d-none d-lg-flex">
+                                <a href="#" class="nav-icon">
+                                    <i class="ri-user-fill"></i>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+
+
+                    <div class="header-icon d-flex d-lg-none">
+                        <a href="#" class="nav-icon">
+                            <i class="ri-phone-fill"></i>
+                        </a>
+                        <a href="#" class="nav-icon">
+                            <div class="position-relative d-inline-flex">
+                                <i class="ri-heart-fill"></i>
+                                <span class="nav-badges">52</span>
+                            </div>
+                        </a>
+                        <a href="#" class="nav-icon">
+                            <div class="position-relative d-inline-flex">
+                                <i class="ri-shopping-basket-2-fill"></i>
+                                <span class="nav-badges">0</span>
+                            </div>
+                        </a>
+                        <div class="hamburger">
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Navbar End -->
+
+        @RenderBody()
+        <!-- Footer -->
+    <footer class="footer-bg   @(ViewData["pageType"]?.ToString() == "Blog" || ViewData["pageType"]?.ToString() == "Checkout" ? "mt-5" : "")">
+            <div class="spacerX">
+                <div class="row text-white align-items-center">
+                    <div class="col-12 col-sm-6 col-lg-3 footer-menu">
+                    <img src="~/front/images/Footer-logo.png" alt="" class="img-fluid">
+
+                        <div class="mt-5">
+                            <p>Mon - Sat: 11AM - 11PM</p>
+                            <p>Sun: 11AM - 08PM</p>
+                            <p class="mt-3">Mon - Sat: 01PM - 10PM</p>
+                            <p>1-800-700-600</p>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-3 footer-menu">
+                        <h6>ABOUT US</h6>
+                        <ul>
+                        <li><a href="@Url.Content("~/Home/About")">About Us</a></li>
+                            <li><a href="#">Privacy policy</a></li>
+                            <li><a href="#">TermS & Condition</a></li>
+                            <li><a href="#">Products Return</a></li>
+                            <li><a href="#">Wholesell Policy</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-3 footer-menu mt-5 mt-sm-lg-0">
+                        <h6>QUICK MENU</h6>
+                        <ul>
+                            <li><a href="#">Our Story</a></li>
+                            <li><a href="#">Our Team</a></li>
+                            <li><a href="#">Our Team</a></li>
+                            <li><a href="#">Health Measure</a></li>
+                            <li><a href="#">Job Oppertunities</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-3 footer-menu mt-5 mt-sm-lg-0">
+                        <h6>Instagram</h6>
+                        <div class="mt-4">
+                        <a href="#"><img src="~/front/images/instagram.png" alt="" class="img-fluid"></a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- jquery-3.6.0 -->
+    <script src="~/front/js/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.21.0/jquery.validate.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/4.0.0/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/front/js/toastr.min.js"></script>
+
+    <script src="~/front/js/owl.carousel.js"></script>
+    <script src="~/front/js/owl.carousel.min.js"></script>
+
+        <!-- Bootstrap -->
+    <script src="~/front/js/bootstrap.bundle.min.js"></script>
+
+    <script src="~/front/js/wow.js"></script>
+
+    <script src="~/front/js/images-loded.min.js"></script>
+    <script src="~/front/js/isotope.min.js"></script>
+
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <!-- Coustam js -->
+    <script src="~/front/js/script.js"></script>
+
+        <script>
+
+            var Container = $('.spacerX');
+            Container.imagesLoaded(function () {
+            var portfolio = $('.special-menu');
+            portfolio.on('click', 'button', function () {
+            // $(this).addClass('active').siblings().removeClass('active');
+            var filterValue = $(this).attr('data-filter');
+            $grid.isotope({
+            filter: filterValue
+            });
+            });
+            var $grid = $('.special-list').isotope({
+            itemSelector: '.special-grid'
+            });
+            });
+
+            $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 10,
+            nav: false,
+            dots: false,
+            autoplay: true,
+            autoplayTimeout: 5000,
+            responsive: {
+            0: {
+            items: 1
+            },
+            600: {
+            items: 1
+            },
+            1000: {
+            items: 1
+            }
+            }
+            });
+
+            var owl = $('.owl-carousel');
+            owl.owlCarousel();
+            owl.on('changed.owl.carousel', function (event) {
+            new WOW().init();
+            })
+
+            wow = new WOW(
+            {
+            boxClass: 'wow',
+            animateClass: 'animated',
+            offset: 0,
+            mobile: true,
+            live: true
+            }
+            )
+            wow.init();
+
+
+            // Append
+            var food = '<div class="col-12 order-div mt-2 mt-sm-5">' +
+            '<div class="d-flex align-items-center">' +
+            '<div class="order-img px-3">' +
+            '<img src="~/front/images/Shack-Burger.png">' +
+            '</div>' +
+            '<div class="d-flex justify-content-between w-100">' +
+            '<div class="order-name">' +
+            '<p class="fw-bolder">Aloo Tikki</p>' +
+            '<p>Burger</p>' +
+            '<p class="fw-bolder">Rs 69</p>' +
+            '</div>' +
+            '<div class="order-name text-end">' +
+            '<p class="fw-bold">Rs 138</p>' +
+            '<div class="d-flex align-items-center mt-2">' +
+            '<a href="#">-</a>' +
+            '<p class="fw-bolder mx-3">2</p>' +
+            '<a href="#">+</a>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>' +
+            '</div>'
+
+            $('.add-food').click(function () {
+            $('#add-foods').append(food)
+            });
+
+            let count = 0;
+            //if add to cart btn clicked
+            $('.addtocart').on('click', function () {
+            let cart = $('.cart-nav');
+            // find the img of that card which button is clicked by user
+            let imgtodrag = $(this).find("img").eq(0);
+
+            // let imgtodrag = $('.mainburger');
+            // console.log(imgtodrag);
+            if (imgtodrag) {
+            // duplicate the img
+            var imgclone = imgtodrag.clone().offset({
+            top: imgtodrag.offset().top,
+            left: imgtodrag.offset().left
+            }).css({
+            'opacity': '0.8',
+            'position': 'absolute',
+            'height': '150px',
+            'width': '150px',
+            'z-index': '100'
+            }).appendTo($('body')).animate({
+            'top': cart.offset().top + 20,
+            'left': cart.offset().left + 30,
+            'width': 75,
+            'height': 75
+            }, 1000, 'easeInOutExpo');
+            imgclone.animate({
+            'width': 0,
+            'height': 0
+            }, function () {
+            $(this).detach()
+            });
+            }
+            });
+
+        $(document).ready(function () {
+
+        var currentUrl = window.location.pathname.toLowerCase();
+
+        $('.nav-link').each(function () {
+
+        var link = $(this).attr('href').toLowerCase();
+
+        if (link === currentUrl) {
+             $(this).addClass('active-nav');
+        }
+
+        });
+
+        });
+        toastr.options = {
+          "closeButton": true,
+          "progressBar": true,
+        }
+        </script>
+        @await RenderSectionAsync("Scripts", required: false)
+    </body>
+
+</html>
