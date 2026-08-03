@@ -2,6 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 
+@model List<FoodOne.Models.Category>
 <!-- Slider -->
 <div class="owl-carousel owl-theme banner-bg-image">
     <div class="item d-flex justify-content-center">
@@ -106,14 +107,24 @@
                     </button>
                 </div>
             </div>
-            <div class="col-auto mt-3 d-flex align-items-center justify-content-center me-sm-4">
-                <div class="borders-1">
-                    <button class="button is-checked color-1" data-filter=".Burger">
-                        <img src="~/front/images/food-1.png" alt="">
-                        <p class="fw-bold">Burger</p>
-                    </button>
-                </div>
-            </div>
+            @if (Model != null && Model.Any())
+            {
+                int index = 1;
+
+                @foreach (var item in Model)
+                {
+                    <div class="col-auto mt-3 d-flex align-items-center justify-content-center me-sm-4">
+                        <div class="borders-2">
+                            <button class="button is-checked color-@index" data-filter=".@item.CategoryName">
+                                <img src="~/uploads/category/@item.CategoryImage" alt="">
+                                <p class="fw-bold">@item.CategoryName</p>
+                            </button>
+                        </div>
+                    </div>
+                    index++;
+                }
+            }
+            @*
             <div class="col-auto mt-3 d-flex align-items-center justify-content-center me-sm-4">
                 <div class="borders-2">
                     <button class="button color-2" data-filter=".Sandwitch">
@@ -153,8 +164,7 @@
             <div class="col-auto mt-3 d-flex align-items-center justify-content-center me-sm-4">
                 <div class="borders-6">
                     <button class="button color-6" data-filter=".Garlic">
-                        <img src="~/front/images/food-6.png"
-                             alt="">
+                        <img src="~/front/images/food-6.png" alt="">
                         <p class="fw-bold">Garlic</p>
                     </button>
                 </div>
@@ -162,8 +172,7 @@
             <div class="col-auto mt-3 d-flex align-items-center justify-content-center me-sm-4">
                 <div class="borders-7">
                     <button class="button color-7" data-filter=".Pasta">
-                        <img src="~/front/images/food-7.png"
-                             alt="">
+                        <img src="~/front/images/food-7.png" alt="">
                         <p class="fw-bold">Pasta</p>
                     </button>
                 </div>
@@ -171,8 +180,7 @@
             <div class="col-auto mt-3 d-flex align-items-center justify-content-center  me-sm-4">
                 <div class="borders-8">
                     <button class="button color-8" data-filter=".Noodles">
-                        <img src="~/front/images/food-8.png"
-                             alt="">
+                        <img src="~/front/images/food-8.png" alt="">
                         <p class="fw-bold">Noodles</p>
                     </button>
                 </div>
@@ -180,21 +188,12 @@
             <div class="col-auto mt-3 d-flex align-items-center justify-content-center  me-sm-4">
                 <div class="borders-9">
                     <button class="button color-9" data-filter=".Beverages">
-                        <img src="~/front/images/food-2.png"
-                             alt="">
+                        <img src="~/front/images/food-2.png"  alt="">
                         <p class="fw-bold">Beverages</p>
                     </button>
                 </div>
             </div>
-            <div class="col-auto mt-3 d-flex align-items-center justify-content-center  me-sm-4">
-                <div class="borders-10">
-                    <button class="button color-10" data-filter=".ColdCoffee">
-                        <img src="~/front/images/food-2.png"
-                             alt="">
-                        <p class="fw-bold">Cold Coffee</p>
-                    </button>
-                </div>
-            </div>
+           *@
         </div>
     </div>
     <div class="row special-list">
@@ -203,16 +202,14 @@
                 <div class="col-4 special-grid mb-5 Burger  Frankie Fries Noodles ColdCoffee"
                      data-category="transition">
                     <div class="addtocart add-food">
-                        <img src="~/front/images/food.png" alt=""
-                             class="img-fluid">
+                        <img src="~/front/images/food.png" alt="" class="img-fluid">
                     </div>
                 </div>
 
                 <div class="col-4 special-grid mb-5 Sandwitch Pizza Garlic Pasta Beverages"
                      data-category="transition">
                     <div class="addtocart add-food">
-                        <img src="~/front/images/food.png" alt=""
-                             class="img-fluid">
+                        <img src="~/front/images/food.png" alt="" class="img-fluid">
                     </div>
                 </div>
 
@@ -226,24 +223,21 @@
                 <div class="col-4 special-grid mb-5 Sandwitch Pizza Garlic Beverages ColdCoffee"
                      data-category="transition">
                     <div class="addtocart add-food">
-                        <img src="~/front/images/food.png" alt=""
-                             class="img-fluid">
+                        <img src="~/front/images/food.png" alt="" class="img-fluid">
                     </div>
                 </div>
 
-                <div class="col-4 special-grid mb-5 Burger Frankie Fries Pasta Noodles"
+                <div class="col-4 special-grid mb-5 Burger Frankie Fries Pasta Noodles Sandwich"
                      data-category="transition">
                     <div class="addtocart add-food">
-                        <img src="~/front/images/food.png" alt=""
-                             class="img-fluid">
+                        <img src="~/front/images/food.png" alt="" class="img-fluid">
                     </div>
                 </div>
 
                 <div class="col-4 special-grid mb-5 Sandwitch Pizza Garlic Beverages"
                      data-category="transition">
                     <div class="addtocart add-food">
-                        <img src="~/front/images/food.png" alt=""
-                             class="img-fluid">
+                        <img src="~/front/images/food.png" alt="" class="img-fluid">
                     </div>
                 </div>
             </div>

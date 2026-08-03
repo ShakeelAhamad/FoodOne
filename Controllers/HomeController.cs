@@ -16,7 +16,9 @@ namespace FoodOne.Controllers
         public IActionResult Index()
         {
             ViewData["pageType"] = "Home";
-            return View();
+            var categories = _dbContext.Categories.Where(c => c.Status == 1).ToList();
+
+            return View(categories);
         }
 
         public IActionResult Privacy()
@@ -25,8 +27,35 @@ namespace FoodOne.Controllers
             return View();
         }
 
-        public IActionResult Blog() {
+        public IActionResult Blog(int page = 1) {
+
             ViewData["pageType"] = "Blog";
+            ViewBag.Categories = _dbContext.Categories.Where(c => c.Status == 1).ToList();
+
+            int pageSize = 3;
+            // Main blogs with pagination
+            var totalBlogs = _dbContext.Blogs
+                                       .Where(b => b.Status == 1)
+                                       .Count();
+            ViewBag.Blogs = _dbContext.Blogs
+                              .Include(b => b.Category)
+                              .Where(b => b.Status == 1)
+                              .OrderByDescending(b => b.CreatedAt)
+                              .Skip((page - 1) * pageSize)
+                              .Take(pageSize)
+                              .ToList();
+
+            ViewBag.CurrentPage = page;
+            ViewBag.TotalPages = (int)Math.Ceiling((double)totalBlogs / pageSize);
+
+            // Recent blogs (sidebar)
+            ViewBag.RecentBlogs = _dbContext.Blogs
+                                            .Include(b => b.Category)
+                                            .Where(b => b.Status == 1)
+                                            .OrderByDescending(b => b.CreatedAt)
+                                            .Take(30)
+                                            .ToList();
+
             return View();
         }
 
